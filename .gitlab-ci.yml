@@ -1,6 +1,6 @@
 # security check
 include:
-  - project: "test-ci/gitlab-ci-templates"
+  - project: "test-ci/gitlab-ci-template"
     ref: main
     file: "base-ci.yaml"
 
