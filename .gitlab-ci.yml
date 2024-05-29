@@ -1,0 +1,19 @@
+# security check
+include:
+  - project: "test-ci/gitlab-ci-templates"
+    ref: main
+    file: "base-ci.yaml"
+
+dev_build:
+  stage: dev
+  image: ubuntu:22.04
+  tags:
+    - test-ci
+  script:
+    - source ansible-env/bin/activate
+    - ansible --version
+  cache:
+    key: ansible-env
+    paths:
+      - ansible-env
+    policy: pull
