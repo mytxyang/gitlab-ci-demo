@@ -14,3 +14,20 @@ image_build_kaniko:
     DOCKERFILE: base.dockerfile
   rules:
     - if: $CI_COMMIT_REF_NAME == "dev"
+
+trivy:
+  extends: .trivy
+  needs:
+    - image_build_kaniko
+  image:
+    name: public.ecr.aws/aquasecurity/trivy:0.51.1
+    entrypoint: [""]
+  before_script:
+    - sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
+    - apk add docker-credential-ecr-login
+    - mkdir -p ~/.docker
+    - >-
+      echo "{\"auths\":{\"https://index.docker.io/v1/\":{\"username\":\"${DOCKERHUB_USER}\",\"password\":\"${DOCKERHUB_PASS}\"}}}" > ~/.docker/config.json
+    - trivy --version
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "dev"
