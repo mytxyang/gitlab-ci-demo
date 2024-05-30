@@ -4,10 +4,10 @@ include:
     ref: main
     file: "base-ci.yaml"
 
-dev_build:
-  stage: dev
-  image: ubuntu:22.04
-  extends: .build
-  script:
-    - source ansible-env/bin/activate
-    - ansible --version
+image_build_kaniko:
+  stage: build
+  extends: .docker_image_build_kaniko
+  variables:
+    DOCKERFILE: base.dockerfile
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "dev"
