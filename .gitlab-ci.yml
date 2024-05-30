@@ -8,7 +8,7 @@ image_build_kaniko:
   stage: build
   extends: .docker_image_build_kaniko
   image:
-    name: daocloud.io/gcr-mirror/kaniko-project-executor:latest
+    name: m.daocloud.io/gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
   variables:
     DOCKERFILE: base.dockerfile
