@@ -5,7 +5,6 @@ include:
     file: "base-ci.yaml"
 
 image_build_kaniko:
-  stage: build
   extends: .docker_image_build_kaniko
   image:
     name: m.daocloud.io/gcr.io/kaniko-project/executor:debug
