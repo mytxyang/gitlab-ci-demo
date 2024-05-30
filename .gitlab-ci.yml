@@ -7,13 +7,7 @@ include:
 dev_build:
   stage: dev
   image: ubuntu:22.04
-  tags:
-    - test-ci
+  extends: .build
   script:
     - source ansible-env/bin/activate
     - ansible --version
-  cache:
-    key: ansible-env
-    paths:
-      - ansible-env
-    policy: pull
